@@ -23,7 +23,6 @@ export async function signup(formdata: FormData) {
 
     const { name, email, password } = validatedFields.data;
     const response = await emailservice(email, signupCode);
-    console.log(response);
 
     if (!response) {
       return {
@@ -45,7 +44,6 @@ export async function signup(formdata: FormData) {
         name: true,
       },
     });
-    console.log(user);
 
     if (!user) {
       return {
@@ -55,8 +53,6 @@ export async function signup(formdata: FormData) {
     }
     return { success: true, message: "verify email to sign up", user };
   } catch (error) {
-    console.log(error);
-
     return { success: false, message: "something went wrong" };
   }
 }

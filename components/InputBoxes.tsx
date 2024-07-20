@@ -14,7 +14,6 @@ const InputBoxes: React.FC<ChildComponentProps> = ({ setCode }) => {
       const codesArr = codes;
       codesArr?.push(e.target.value);
       setCodes(codesArr);
-      console.log(codesArr);
       setCode(codesArr);
       const nextInput = inputRefs.current[index + 1];
       if (nextInput) {

@@ -11,9 +11,6 @@ const VerifyPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
-  console.log(email);
-
-  console.log(code, "ert");
 
   const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

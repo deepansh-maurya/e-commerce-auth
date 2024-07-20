@@ -15,7 +15,6 @@ const SignupPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState((prevState) => ({ ...prevState, [name]: value }));
-    console.log(formState);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,8 +25,6 @@ const SignupPage = () => {
     formdata.append("email", formState.email);
     formdata.append("password", formState.password);
     const response = await signup(formdata);
-
-    console.log(response);
 
     if (response.success) {
       toast.success("Verify to complete Registration");

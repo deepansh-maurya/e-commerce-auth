@@ -34,7 +34,6 @@ type CategoryType = {
 };
 export async function changeCategories(categories: CategoriesArray) {
   try {
-    console.log(categories);
 
     const response = await verifySession();
     const { success } = response;
@@ -46,7 +45,6 @@ export async function changeCategories(categories: CategoriesArray) {
       return { success: false, message: "User ID is missing" };
     }
     const allCategories: CategoryType[] = await client.category.findMany();
-    console.log(allCategories);
 
     if (allCategories) {
       categories.map((data, index) => {
@@ -55,7 +53,6 @@ export async function changeCategories(categories: CategoriesArray) {
         }
       });
     }
-    console.log(allCategories);
 
     await client.userCategory.deleteMany({
       where: {
@@ -72,7 +69,6 @@ export async function changeCategories(categories: CategoriesArray) {
               categoryId: data.id,
             },
           });
-          console.log(res);
         }
       })
     );

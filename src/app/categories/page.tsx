@@ -37,7 +37,6 @@ const Categories = () => {
       myCategories = response.myCategories;
       categories = response.categories;
     }
-    console.log(categories.length);
 
     if (categories && myCategories) {
       const tempCategories: CategoriesObject[] = [];
@@ -113,7 +112,6 @@ const Categories = () => {
 
   const handleCategoriesChange = async () => {
     const response = await changeCategories(categories);
-    console.log(response, "response");
   };
 
   return (
@@ -168,10 +166,10 @@ const Categories = () => {
                 const tempTotalPages = [...totalPages];
                 const newCurrentPages: number[] = [];
                 tempTotalPages.map((data, index) => {
-                  if (index < 8) newCurrentPages.push(data);
+                  if (index < 7) newCurrentPages.push(data);
                 });
                 setCurrentPages(newCurrentPages);
-                fetchPageData(0);
+                fetchPageData(1);
               }}
               className="text-slate-400"
             >

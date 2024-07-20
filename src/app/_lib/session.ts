@@ -34,7 +34,6 @@ function encrypt(user: User) {
   let token = "";
   if (!secretKey) throw new Error("undefined secret");
   token = jwt.sign(userData, secretKey, { header, expiresIn });
-  console.log(token);
 
   return token;
 }
