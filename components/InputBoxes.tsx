@@ -27,7 +27,7 @@ const InputBoxes: React.FC<ChildComponentProps> = ({ setCode }) => {
     if (e.key === "Backspace") {
       const currentInput = e.target as HTMLInputElement;
       if (currentInput.value === "") {
-        let codeArr = codes;
+        const codeArr = codes;
         codeArr.pop();
         setCodes(codeArr);
         const prevInput = inputRefs.current[index - 1];

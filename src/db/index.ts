@@ -20,6 +20,12 @@ async function generateCategories() {
 
 export default prisma;
 function callGenerateCategories() {
-  generateCategories();
+  generateCategories()
+    .then(() => {
+      console.log("category genrated");
+    })
+    .catch(() => {
+      console.log("failed to genrate categories");
+    });
 }
 callGenerateCategories();
