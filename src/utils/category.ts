@@ -5,7 +5,7 @@ export function filterCategories(
   lastIndex: number,
   categories: CategoriesArray
 ): CategoriesArray {
-  let tempCategories: CategoriesObject[] = [];
+  const tempCategories: CategoriesObject[] = [];
   console.log(firstIndex, lastIndex);
 
   categories.map((data, index) => {

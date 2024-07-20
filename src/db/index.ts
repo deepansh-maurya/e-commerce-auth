@@ -1,8 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
-
 const prismaClientSingleton = () => {
-  generateCategories();
   return new PrismaClient();
 };
 
@@ -28,5 +26,6 @@ async function generateCategories() {
 }
 
 export default prisma;
+generateCategories();
 
 if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
