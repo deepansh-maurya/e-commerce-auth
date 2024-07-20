@@ -106,10 +106,10 @@ const Categories = () => {
       .catch(() => {
         toast.error("Failed to fetch categories");
       });
-  }, [fetchCategories]);
+  }, []);
   useEffect(() => {
     fetchPageData(activePage);
-  }, [activePage, fetchPageData]);
+  }, [activePage]);
 
   const handleCategoriesChange = async () => {
     const response = await changeCategories(categories);
