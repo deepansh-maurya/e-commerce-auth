@@ -22,7 +22,7 @@ const VerifyPage = () => {
     code.map((data) => {
       tempCode += data;
     });
-    let finalCode = Number(tempCode);
+    const finalCode = Number(tempCode);
     let response;
     if (email) response = await verifyEmail(email, finalCode);
 
@@ -39,18 +39,7 @@ const VerifyPage = () => {
     }
     setSpinner("null");
   };
-  useEffect(() => {
-    const handleBeforeUnload = async (event: BeforeUnloadEvent) => {
-      await verifyEmail("123@randomttext.com", null);
-      event.preventDefault();
-    };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
   return (
     <div>
       <Navbar />

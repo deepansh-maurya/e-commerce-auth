@@ -1,5 +1,5 @@
 "use server";
-import { CategoriesArray } from "../categories/page";
+import {type CategoriesArray } from "../categories/page";
 import client from "../../db/index";
 import { verifySession } from "../_lib/session";
 export async function getCategories() {
@@ -64,9 +64,9 @@ export async function changeCategories(categories: CategoriesArray) {
     });
 
     await Promise.all(
-      allCategories.map(async (data, index) => {
+      allCategories.map(async (data) => {
         if (data.checked) {
-          let res = await client.userCategory.create({
+          const res = await client.userCategory.create({
             data: {
               userId: userId,
               categoryId: data.id,

@@ -1,16 +1,17 @@
 "use client";
-import React, { useRef, ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { useRef,type ChangeEvent,type KeyboardEvent, useState } from "react";
 interface ChildComponentProps {
   setCode: React.Dispatch<React.SetStateAction<string[]>>;
 }
 const InputBoxes: React.FC<ChildComponentProps> = ({ setCode }) => {
   const [codes, setCodes] = useState<string[]>([]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
+  const arrayLength = 8;
+  const array = Array.from({ length: arrayLength }, (_, index) => index);
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
     if (value.length === 1) {
-      let codesArr = codes;
+      const codesArr = codes;
       codesArr?.push(e.target.value);
       setCodes(codesArr);
       console.log(codesArr);
@@ -43,7 +44,7 @@ const InputBoxes: React.FC<ChildComponentProps> = ({ setCode }) => {
   };
   return (
     <div className="flex space-x-2">
-      {[...Array(8)].map((_, index) => (
+      {array.map((_, index) => (
         <input
           key={index}
           type="text"

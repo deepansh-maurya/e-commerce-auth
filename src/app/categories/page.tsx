@@ -1,5 +1,6 @@
 "use client";
 import { IoCheckbox } from "react-icons/io5";
+import { Toaster, toast } from "react-hot-toast";
 import Navbar from "components/Navbar";
 import { changeCategories, getCategories } from "../actions/user";
 import { useEffect, useState } from "react";
@@ -39,7 +40,7 @@ const Categories = () => {
     }
 
     if (categories && myCategories) {
-      let tempCategories: CategoriesObject[] = [];
+      const tempCategories: CategoriesObject[] = [];
       categories.map((data, index) => {
         index < 7 ? tempCategories.push(data) : null;
       });
@@ -53,12 +54,12 @@ const Categories = () => {
       });
       setCategories(categories);
 
-      let totalPages: number[] = [];
+      const totalPages: number[] = [];
       for (let i = 0; i < Math.ceil(categories.length / 7); i++) {
         totalPages.push(i + 1);
       }
       settotalPages(totalPages);
-      let currentPages: number[] = [];
+      const currentPages: number[] = [];
       totalPages.map((data, index) => {
         if (index < 7) currentPages.push(data);
       });
@@ -67,8 +68,8 @@ const Categories = () => {
   };
 
   const handlePageDown = () => {
-    let tempCurrentPages = [...currentPages];
-    let newCurrentPages: number[] = [];
+    const tempCurrentPages = [...currentPages];
+    const newCurrentPages: number[] = [];
     if (tempCurrentPages && tempCurrentPages[0] != 1) {
       tempCurrentPages.map((data) => newCurrentPages.push(data - 1));
       setCurrentPages(newCurrentPages);
@@ -76,8 +77,8 @@ const Categories = () => {
   };
 
   const handlePageUp = () => {
-    let tempCurrentPages = [...currentPages];
-    let newCurrentPages: number[] = [];
+    const tempCurrentPages = [...currentPages];
+    const newCurrentPages: number[] = [];
     if (
       tempCurrentPages &&
       tempCurrentPages[tempCurrentPages.length - 1] != 15
@@ -87,10 +88,10 @@ const Categories = () => {
     }
   };
   const fetchPageData = (data: number) => {
-    let lastIndex = data * 7;
-    let firstIndex = lastIndex - 6;
+    const lastIndex = data * 7;
+    const firstIndex = lastIndex - 6;
 
-    let filteredCategories = filterCategories(
+    const filteredCategories = filterCategories(
       firstIndex - 1,
       lastIndex - 1,
       categories
@@ -98,11 +99,17 @@ const Categories = () => {
     setTOMapCatgories(filteredCategories);
   };
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchCategories()
+      .then(() => {
+        toast.success("Successfully fetched categories");
+      })
+      .catch(() => {
+        toast.error("Failed to fetch categories");
+      });
+  }, [fetchCategories]);
   useEffect(() => {
     fetchPageData(activePage);
-  }, [activePage]);
+  }, [activePage, fetchPageData]);
 
   const handleCategoriesChange = async () => {
     const response = await changeCategories(categories);
@@ -122,13 +129,13 @@ const Categories = () => {
               My saved interests
             </h2>
             {Array.isArray(toMapCategories) &&
-              toMapCategories.map((data, index) => {
+              toMapCategories.map((data) => {
                 return (
                   <div
                     className="flex items-center  w-[60%] h-[] gap-1 "
                     key={data.id * Math.random()}
                     onClick={() => {
-                      let tempCategories = [...categories];
+                      const tempCategories = [...categories];
                       tempCategories.map((cateData) => {
                         if (cateData.name == data.name)
                           cateData.checked = !cateData.checked;
@@ -158,8 +165,8 @@ const Categories = () => {
           <div className=" flex gap-3 cursor-pointer text-xl items-center justify-center font-semibold w-[80%] rounded-md h-[50px] text-black bg-white relative right-[10%]">
             <p
               onClick={() => {
-                let tempTotalPages = [...totalPages];
-                let newCurrentPages: number[] = [];
+                const tempTotalPages = [...totalPages];
+                const newCurrentPages: number[] = [];
                 tempTotalPages.map((data, index) => {
                   if (index < 8) newCurrentPages.push(data);
                 });
@@ -206,8 +213,8 @@ const Categories = () => {
             </div>
             <p
               onClick={() => {
-                let tempTotalPages = [...totalPages];
-                let newCurrentPages: number[] = [];
+                const tempTotalPages = [...totalPages];
+                const newCurrentPages: number[] = [];
                 tempTotalPages.map((data, index) => {
                   if (index >= 8) newCurrentPages.push(data);
                 });
@@ -221,6 +228,7 @@ const Categories = () => {
           </div>
         </section>
       </main>
+      <Toaster />
     </div>
   );
 };

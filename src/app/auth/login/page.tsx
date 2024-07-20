@@ -18,7 +18,7 @@ const LoginPage = () => {
     formdata.append("email", email);
     formdata.append("password", password);
 
-    let response = await login(formdata);
+    const response = await login(formdata);
     if (response.success) {
       toast.success("Loggin successfully");
       router.push("/categories");
