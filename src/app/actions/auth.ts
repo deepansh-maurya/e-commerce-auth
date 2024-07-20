@@ -44,6 +44,7 @@ export async function signup(formdata: FormData) {
         name: true,
       },
     });
+    console.log(user);
 
     if (!user) {
       return {

@@ -38,6 +38,7 @@ const Categories = () => {
       myCategories = response.myCategories;
       categories = response.categories;
     }
+    console.log(categories.length);
 
     if (categories && myCategories) {
       const tempCategories: CategoriesObject[] = [];
@@ -101,10 +102,10 @@ const Categories = () => {
   useEffect(() => {
     fetchCategories()
       .then(() => {
-        toast.success("Successfully fetched categories");
+        console.log("Successfully fetched categories");
       })
       .catch(() => {
-        toast.error("Failed to fetch categories");
+        console.log("Failed to fetch categories");
       });
   }, []);
   useEffect(() => {

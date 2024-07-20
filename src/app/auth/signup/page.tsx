@@ -27,6 +27,8 @@ const SignupPage = () => {
     formdata.append("password", formState.password);
     const response = await signup(formdata);
 
+    console.log(response);
+
     if (response.success) {
       toast.success("Verify to complete Registration");
       setTimeout(() => {
