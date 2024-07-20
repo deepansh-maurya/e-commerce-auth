@@ -35,22 +35,22 @@ import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-async function generateCategories() {
-  try {
-    for (let i = 0; i < 100; i++) {
-      const categoryName = faker.commerce.department();
-      const categories = await prisma.category.create({
-        data: {
-          name: categoryName,
-        },
-      });
-      console.log(categories);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-generateCategories();
+// async function generateCategories() {
+//   try {
+//     for (let i = 0; i < 100; i++) {
+//       const categoryName = faker.commerce.department();
+//       const categories = await prisma.category.create({
+//         data: {
+//           name: categoryName,
+//         },
+//       });
+//       console.log(categories);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// generateCategories();
 export default prisma;
 // function callGenerateCategories() {
 //   generateCategories()
