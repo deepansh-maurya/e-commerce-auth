@@ -41,36 +41,34 @@ const VerifyPage = () => {
   };
 
   return (
-    <Suspense fallback={<div>loading....</div>}>
-      <div>
-        <Navbar />
-        <main className="flex items-center justify-center mt-7 w-[100vw] ">
-          <form
-            onSubmit={handleVerifyCode}
-            className="flex flex-col items-center justify-center w-[526px] border border-slate-400  h-[420px] rounded-xl gap-5 mt-8"
-          >
-            <h1 className="text-[32px] font-bold">Verify your email</h1>
-            <h3 className="text-[18px] flex flex-col items-center justify-center ">
-              Enter the 8 digit code you have received on
-              <p className="font-semibold">{email}</p>
-            </h3>
-            <div className="flex flex-col  font-medium w-[80%] ">
-              <label htmlFor="email">Code</label>
-              <div className="flex justify-between gap-1 items-center">
-                <InputBoxes setCode={setCode} />
-              </div>
+    <div>
+      <Navbar />
+      <main className="flex items-center justify-center mt-7 w-[100vw] ">
+        <form
+          onSubmit={handleVerifyCode}
+          className="flex flex-col items-center justify-center w-[526px] border border-slate-400  h-[420px] rounded-xl gap-5 mt-8"
+        >
+          <h1 className="text-[32px] font-bold">Verify your email</h1>
+          <h3 className="text-[18px] flex flex-col items-center justify-center ">
+            Enter the 8 digit code you have received on
+            <p className="font-semibold">{email}</p>
+          </h3>
+          <div className="flex flex-col  font-medium w-[80%] ">
+            <label htmlFor="email">Code</label>
+            <div className="flex justify-between gap-1 items-center">
+              <InputBoxes setCode={setCode} />
             </div>
-            <button
-              className=" border text-xl mt-5  font-medium w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
-              type="submit"
-            >
-              {spinner == "spinner" ? "Verify" : "wait ..."}
-            </button>
-          </form>
-        </main>
-        <Toaster />
-      </div>
-    </Suspense>
+          </div>
+          <button
+            className=" border text-xl mt-5  font-medium w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
+            type="submit"
+          >
+            {spinner == "spinner" ? "Verify" : "wait ..."}
+          </button>
+        </form>
+      </main>
+      <Toaster />
+    </div>
   );
 };
 
