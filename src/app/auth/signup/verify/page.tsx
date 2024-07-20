@@ -72,4 +72,11 @@ const VerifyPage = () => {
   );
 };
 
-export default VerifyPage;
+const verifyPageBoundary = () => {
+  return (
+    <Suspense fallback={<div>loading ...</div>}>
+      <VerifyPage />
+    </Suspense>
+  );
+};
+export default verifyPageBoundary;
