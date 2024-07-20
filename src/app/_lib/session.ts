@@ -31,7 +31,7 @@ function encrypt(user: User) {
     email: user.email,
   };
   const secretKey = process.env.JWT_SECRET_KEY;
-  let token;
+  let token = "";
   if (!secretKey) throw new Error("undefined secret");
   token = jwt.sign(userData, secretKey, { header, expiresIn });
   console.log(token);

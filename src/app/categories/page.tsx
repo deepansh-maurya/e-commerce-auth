@@ -134,7 +134,7 @@ const Categories = () => {
                   <div
                     className="flex items-center  w-[60%] h-[] gap-1 "
                     key={data.id * Math.random()}
-                    onClick={() => {
+                    onClick={async () => {
                       const tempCategories = [...categories];
                       tempCategories.map((cateData) => {
                         if (cateData.name == data.name)
@@ -142,7 +142,7 @@ const Categories = () => {
                         return;
                       });
                       setCategories(tempCategories);
-                      handleCategoriesChange();
+                      await handleCategoriesChange();
                     }}
                   >
                     <div className="text-3xl flex gap-1 mb-1  justify-center items-center  ">
@@ -186,7 +186,7 @@ const Categories = () => {
               >
                 {currentPages[0] == 1 ? "<" : "< ..."}
               </div>
-              {currentPages.map((data, index) => {
+              {currentPages.map((data) => {
                 return (
                   <p
                     key={data}

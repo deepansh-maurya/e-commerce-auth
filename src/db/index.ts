@@ -1,14 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
 
-declare global {
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
-}
-
-const prisma = globalThis.prisma ?? prismaClientSingleton();
+const prisma = new PrismaClient();
 async function generateCategories() {
   try {
     for (let i = 0; i < 100; i++) {
@@ -26,8 +19,7 @@ async function generateCategories() {
 }
 
 export default prisma;
-async function callGenerateCategories() {
-  await generateCategories();
+function callGenerateCategories() {
+  generateCategories();
 }
 callGenerateCategories();
-if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
