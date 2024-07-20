@@ -26,6 +26,8 @@ async function generateCategories() {
 }
 
 export default prisma;
-await generateCategories();
-
+async function callGenerateCategories() {
+  await generateCategories();
+}
+callGenerateCategories();
 if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
