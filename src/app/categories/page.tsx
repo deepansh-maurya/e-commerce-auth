@@ -25,7 +25,6 @@ const Categories = () => {
   const [currentPages, setCurrentPages] = useState<number[]>([]);
   const [categories, setCategories] = useState<CategoriesArray>([]);
   const [toMapCategories, setTOMapCatgories] = useState<CategoriesArray>([]);
-  console.log(categories);
 
   const fetchCategories = async () => {
     const response = await getCategories();

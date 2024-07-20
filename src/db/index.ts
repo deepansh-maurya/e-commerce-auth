@@ -50,7 +50,7 @@ async function generateCategories() {
     console.log(error);
   }
 }
-
+generateCategories();
 export default prisma;
 // function callGenerateCategories() {
 //   generateCategories()
