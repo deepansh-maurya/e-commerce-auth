@@ -1,11 +1,13 @@
 "use client";
+import { Toaster, toast } from "react-hot-toast";
 import InputBoxes from "components/InputBoxes";
 import Navbar from "components/Navbar";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { verifyEmail } from "~/app/actions/auth";
 const VerifyPage = () => {
   const [code, setCode] = useState<string[]>([]);
+  const [spinner, setSpinner] = useState("null");
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
@@ -15,6 +17,7 @@ const VerifyPage = () => {
 
   const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSpinner("spinner");
     let tempCode = "";
     code.map((data) => {
       tempCode += data;
@@ -23,10 +26,31 @@ const VerifyPage = () => {
     let response;
     if (email) response = await verifyEmail(email, finalCode);
 
-    console.log(response);
-    router.push("/auth/login");
+    if (response?.success) {
+      toast.success("Signed Up Successfully");
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 500);
+    } else {
+      toast.error("Failed to Signup, try again");
+      setTimeout(() => {
+        router.push("/auth/signup");
+      }, 500);
+    }
+    setSpinner("null");
   };
+  useEffect(() => {
+    const handleBeforeUnload = async (event: BeforeUnloadEvent) => {
+      await verifyEmail("123@randomttext.com", null);
+      event.preventDefault();
+    };
 
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <div>
       <Navbar />
@@ -50,10 +74,11 @@ const VerifyPage = () => {
             className=" border text-xl mt-5  font-medium w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
             type="submit"
           >
-            Verify
+            {spinner == "spinner" ? "Verify" : "wait ..."}
           </button>
         </form>
       </main>
+      <Toaster />
     </div>
   );
 };

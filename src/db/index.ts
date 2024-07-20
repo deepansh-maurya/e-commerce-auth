@@ -24,8 +24,6 @@ async function generateCategories() {
     }
   } catch (error) {
     console.log(error);
-
-    await prisma.$disconnect();
   }
 }
 

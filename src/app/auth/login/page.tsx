@@ -1,20 +1,37 @@
 "use client";
+import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import Navbar from "components/Navbar";
 import { login } from "~/app/actions/auth";
+import { useRouter } from "next/navigation";
 const LoginPage = () => {
+  const [spinner, setSpinner] = useState("null");
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSpinner("spinner");
     const formdata = new FormData();
     formdata.append("email", email);
     formdata.append("password", password);
 
     let response = await login(formdata);
-    console.log(response);
+    if (response.success) {
+      toast.success("Loggin successfully");
+      router.push("/categories");
+    } else if (response.errors) {
+      toast.error("Invalid Credentials");
+      setEmail("");
+      setPassword("");
+    } else {
+      setEmail("");
+      setPassword("");
+      toast.error("Login Failed");
+    }
+    setSpinner("null");
   };
 
   return (
@@ -66,7 +83,7 @@ const LoginPage = () => {
             type="submit"
             className="border text-xl font-semibold w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
           >
-            Login
+            {spinner == "spinner" ? "Wait ..." : "Login"}
           </button>
 
           <div className="w-[80%] bg-slate-400 h-[1px]"></div>
@@ -79,6 +96,7 @@ const LoginPage = () => {
           </div>
         </form>
       </main>
+      <Toaster />
     </div>
   );
 };

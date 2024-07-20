@@ -1,9 +1,11 @@
 "use client";
 import Navbar from "components/Navbar";
+import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signup } from "~/app/actions/auth";
 const SignupPage = () => {
+  const [spinner, setSpinner] = useState("null");
   const router = useRouter();
   const [formState, setFormState] = useState({
     name: "",
@@ -18,16 +20,36 @@ const SignupPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSpinner("spinner");
     const formdata = new FormData();
     formdata.append("name", formState.name);
     formdata.append("email", formState.email);
     formdata.append("password", formState.password);
     const response = await signup(formdata);
-    console.log(response);
 
-    router.push(
-      `/auth/signup/verify?email=${encodeURIComponent(formState.email)}`
-    );
+    if (response.success) {
+      toast.success("Verify to complete Registration");
+      setTimeout(() => {
+        router.push(
+          `/auth/signup/verify?email=${encodeURIComponent(formState.email)}`
+        );
+      }, 500);
+    } else if (response.errors) {
+      setFormState({
+        name: "",
+        email: "",
+        password: "",
+      });
+      toast.error("Invalid Credentials");
+    } else {
+      setFormState({
+        name: "",
+        email: "",
+        password: "",
+      });
+      toast.error("Signup Failed, try again");
+    }
+    setSpinner("null");
   };
 
   return (
@@ -79,7 +101,7 @@ const SignupPage = () => {
             className="border text-xl mt-5 font-medium w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
             type="submit"
           >
-            Create Account
+            {spinner == "spinner" ? <p>Wait ...</p> : <div>Create Account</div>}
           </button>
           <div className="w-[80%] bg-slate-400 h-[1px]"></div>
           <div className="flex gap-4">
@@ -90,6 +112,7 @@ const SignupPage = () => {
           </div>
         </form>
       </main>
+      <Toaster />
     </div>
   );
 };
