@@ -35,7 +35,7 @@ const InputBoxes: React.FC<ChildComponentProps> = ({ setCode }) => {
           prevInput.focus();
         }
       } else {
-        let codeArr = codes;
+        const codeArr = codes;
         codeArr.pop();
         setCodes(codeArr);
         currentInput.value = "";
