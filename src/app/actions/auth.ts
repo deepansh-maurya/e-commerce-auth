@@ -110,7 +110,7 @@ export async function login(formdata: FormData) {
       },
     });
     if (!user) return { message: "unauthorized user", success: false };
-    let hashpassword = await bcrypt.compare(password, user.password);
+    const hashpassword = await bcrypt.compare(password, user.password);
 
     if (hashpassword) await createSession(user);
     else return { success: false, message: "wrong password" };

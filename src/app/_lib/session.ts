@@ -9,7 +9,7 @@ interface User {
   email: string;
 }
 export async function createSession(user: User) {
-  let token = encrypt(user);
+  const token = encrypt(user);
   cookies().set("token", token, {
     httpOnly: true,
     secure: true,
