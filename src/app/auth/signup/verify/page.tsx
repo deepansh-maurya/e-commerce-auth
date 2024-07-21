@@ -60,7 +60,7 @@ const VerifyPage = () => {
             className=" border text-xl mt-5  font-medium w-[80%] border-slate-400 rounded-md h-[50px] text-white bg-black"
             type="submit"
           >
-            {spinner == "spinner" ? "Verify" : "wait ..."}
+            {spinner == "spinner" ? "wait ..." : "Verify"}
           </button>
         </form>
       </main>
